@@ -112,7 +112,7 @@ function runOAuthFlow(oAuth2Client) {
 
 // ── GEMINI PARSER ─────────────────────────────────────────────
 const gemini = new GoogleGenerativeAI(GEMINI_API_KEY);
-const geminiModel = gemini.getGenerativeModel({ model: 'gemini-1.5-flash' });
+const geminiModel = gemini.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
 async function parseRecipeText(text, docTitle) {
   const prompt = `You are a recipe parser. Convert the recipe text below into a JSON object. Return ONLY the JSON — no explanation, no markdown code fences.
