@@ -1,0 +1,13 @@
+{
+  "name": "recipe-import",
+  "version": "1.0.0",
+  "description": "One-time Google Drive → Supabase recipe import",
+  "main": "import.js",
+  "scripts": {
+    "start": "node import.js"
+  },
+  "dependencies": {
+    "googleapis": "^144.0.0",
+    "@google/generative-ai": "^0.21.0"
+  }
+}
