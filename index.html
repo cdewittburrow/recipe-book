@@ -70,7 +70,7 @@
     }
     .lib-title {
       font-family: var(--font-display);
-      font-size: 28px;
+      font-size: 32px;
       font-weight: 400;
       color: var(--cream);
       line-height: 1.1;
@@ -251,40 +251,36 @@
     ════════════════════════════════ */
     #detail { background: var(--bg); }
 
+    .detail-header { flex-shrink: 0; }
+
     .detail-nav {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 16px 20px 10px;
-      flex-shrink: 0;
+      padding: 14px 20px 8px;
     }
     .detail-back {
       font-size: 13px;
       font-weight: 500;
       color: var(--amber);
     }
-    .detail-nav-actions { display: flex; gap: 4px; }
-    .btn-icon { font-size: 18px; color: var(--muted); padding: 4px 6px; line-height: 1; }
-    .btn-icon.danger { color: #c0392b; }
+
+    .detail-header-title {
+      font-family: var(--font-display);
+      font-size: 30px;
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1.15;
+      padding: 0 20px 16px;
+    }
 
     .amber-rule {
       height: 1px;
       background: linear-gradient(90deg, var(--amber-dim), transparent);
-      margin: 0 20px 14px;
+      margin: 0 20px 0;
       flex-shrink: 0;
     }
 
     #detail-content { padding: 20px 20px 0; }
-
-    .detail-title {
-      font-family: var(--font-display);
-      font-size: 26px;
-      font-weight: 400;
-      color: var(--cream);
-      letter-spacing: -.02em;
-      line-height: 1.2;
-      margin-bottom: 8px;
-    }
     .detail-desc { font-size: .9rem; color: var(--cream-dim); margin-bottom: 12px; line-height: 1.5; }
     .detail-byline {
       font-size: 10px;
@@ -412,6 +408,7 @@
       padding: 6px 14px;
     }
     .btn-ghost-sm:active { color: var(--amber); border-color: var(--amber-dim); }
+    .btn-ghost-sm.danger { color: #c0392b; border-color: rgba(192,57,43,0.3); }
 
     /* ════════════════════════════════
        COOK MODE
@@ -434,7 +431,7 @@
     .cook-header { display: flex; align-items: flex-start; gap: 12px; padding: 4px 16px 8px; flex-shrink: 0; }
     .cook-exit { font-size: 12px; font-weight: 500; color: var(--amber); flex-shrink: 0; padding-top: 2px; }
     .cook-header-info { flex: 1; min-width: 0; }
-    .cook-title { font-family: var(--font-display); font-size: 15px; font-weight: 400; color: var(--cream); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cook-title { font-family: var(--font-display); font-size: 20px; font-weight: 400; color: var(--cream); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .cook-meta { font-size: 10px; color: var(--muted); margin-top: 2px; }
 
     .scale-bar {
@@ -843,20 +840,21 @@
        DETAIL VIEW
   ════════════════════════════════ -->
   <div class="view" id="detail">
-    <div class="detail-nav">
-      <button class="detail-back" id="detail-back">‹ Library</button>
-      <div class="detail-nav-actions">
-        <button class="btn-icon" id="edit-btn" title="Edit">✏</button>
-        <button class="btn-icon danger" id="detail-delete-btn" title="Delete">🗑</button>
+    <div class="detail-header">
+      <div class="detail-nav">
+        <button class="detail-back" id="detail-back">‹ Library</button>
       </div>
+      <div class="detail-header-title" id="detail-header-title"></div>
+      <div class="amber-rule"></div>
     </div>
-    <div class="amber-rule"></div>
     <div class="scroll-area" id="detail-content"></div>
     <div class="detail-sticky-footer">
       <button class="btn-cook" id="cook-btn">Start cooking</button>
       <div class="detail-footer-actions">
         <button class="btn-ghost-sm" id="shop-btn">Shopping List</button>
         <button class="btn-ghost-sm" id="export-btn">Export</button>
+        <button class="btn-ghost-sm" id="edit-btn">Edit</button>
+        <button class="btn-ghost-sm danger" id="detail-delete-btn">Delete</button>
       </div>
     </div>
   </div>
@@ -1334,8 +1332,9 @@ function renderDetail() {
     </li>`;
   }).join('');
 
+  document.getElementById('detail-header-title').textContent = r.title;
+
   document.getElementById('detail-content').innerHTML = `
-    <div class="detail-title">${esc(r.title)}</div>
     ${r.description ? `<div class="detail-desc">${esc(r.description)}</div>` : ''}
     ${bylineHTML ? `<div class="detail-byline">${bylineHTML}</div>` : ''}
     ${r.tags && r.tags.length ? `<div class="detail-tags">${r.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>` : ''}
