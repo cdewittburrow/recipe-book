@@ -25,8 +25,8 @@
       --cream:        #f0e6d0;
       --cream-dim:    #a89880;
       --muted:        #6b6660;
-      --border:       rgba(255,255,255,0.06);
-      --border-amber: rgba(201,147,58,0.15);
+      --border:        rgba(201,147,58,0.15);
+      --border-subtle: rgba(255,255,255,0.06);
       --radius:       10px;
       --font-display: 'Playfair Display', Georgia, serif;
       --font-body:    'DM Sans', system-ui, sans-serif;
@@ -52,7 +52,7 @@
 
     /* ── Loading ── */
     .loading { display: flex; align-items: center; gap: 10px; padding: 40px 20px; color: var(--muted); font-size: .9rem; justify-content: center; }
-    .spinner { width: 18px; height: 18px; border: 2px solid var(--border); border-top-color: var(--amber); border-radius: 50%; animation: spin .7s linear infinite; }
+    .spinner { width: 18px; height: 18px; border: 2px solid var(--border-subtle); border-top-color: var(--amber); border-radius: 50%; animation: spin .7s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ════════════════════════════════
@@ -64,8 +64,9 @@
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      padding: 20px 20px 0;
+      padding: 20px 20px 12px;
       gap: 12px;
+      border-bottom: 1px solid var(--border-subtle);
     }
     .lib-title {
       font-family: var(--font-display);
@@ -83,28 +84,11 @@
       letter-spacing: .06em;
       margin-top: 4px;
     }
-    .sort-select {
-      font-family: var(--font-body);
-      font-size: 11px;
-      color: var(--muted);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 5px 10px;
-      appearance: none;
-      -webkit-appearance: none;
-      cursor: pointer;
-      outline: none;
-      margin-top: 6px;
-    }
-    .sort-select:focus { border-color: var(--amber-dim); color: var(--cream); }
-    .sort-select option { background: var(--surface); }
-
-    .lib-search-row { padding: 14px 20px 8px; }
+    .lib-search-row { padding: 10px 20px 8px; display: flex; gap: 8px; }
     .search-input {
-      width: 100%;
+      flex: 1;
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius);
       padding: 10px 14px;
       font-size: .9rem;
@@ -113,6 +97,18 @@
     }
     .search-input::placeholder { color: var(--muted); }
     .search-input:focus { border-color: var(--amber-dim); }
+    .filter-btn {
+      flex-shrink: 0;
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      padding: 0 13px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+    .fl-lines { display: flex; flex-direction: column; gap: 3px; }
+    .fl { height: 1.5px; background: var(--muted); border-radius: 1px; }
+    .fl1 { width: 13px; } .fl2 { width: 9px; } .fl3 { width: 5px; }
 
     .filter-bar {
       display: flex;
@@ -125,15 +121,16 @@
     .filter-bar::-webkit-scrollbar { display: none; }
     .filter-chip {
       font-size: .78rem;
-      font-weight: 500;
-      padding: 5px 12px;
+      font-weight: 400;
+      padding: 3px 10px;
       border-radius: 20px;
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-subtle);
       background: var(--surface);
       color: var(--muted);
       white-space: nowrap;
       cursor: pointer;
       transition: all .15s;
+      letter-spacing: .02em;
     }
     .filter-chip.active { background: var(--amber); border-color: var(--amber); color: #1a1200; }
 
@@ -144,8 +141,8 @@
       display: flex;
       align-items: center;
       gap: 14px;
-      padding: 14px 20px;
-      border-bottom: 1px solid var(--border);
+      padding: 11px 20px;
+      border-bottom: 1px solid var(--border-subtle);
       background: none;
       color: inherit;
       text-align: left;
@@ -168,7 +165,8 @@
     }
     .card-info { flex: 1; min-width: 0; }
     .card-title-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-    .card-title { font-size: .95rem; font-weight: 500; color: var(--cream); line-height: 1.3; }
+    .card-title { font-family: var(--font-display); font-size: 14px; font-weight: 400; color: var(--cream); line-height: 1.3; }
+    .meta-dot { width: 2px; height: 2px; border-radius: 50%; background: var(--muted); flex-shrink: 0; align-self: center; display: inline-block; }
     .annotated-badge {
       font-size: 9px;
       font-weight: 500;
@@ -179,8 +177,7 @@
       padding: 2px 5px;
     }
     .card-desc { font-size: .8rem; color: var(--cream-dim); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .card-meta { font-size: .75rem; color: var(--muted); margin-top: 4px; }
-    .card-meta .dot { color: var(--amber-dim); }
+    .card-meta { font-size: 10px; color: var(--muted); margin-top: 3px; display: flex; align-items: center; gap: 5px; }
     .card-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 5px; }
     .card-chevron { color: var(--muted); font-size: 18px; flex-shrink: 0; }
 
@@ -205,14 +202,14 @@
     /* FAB */
     .fab {
       position: absolute;
-      bottom: 76px;
-      right: 20px;
-      width: 52px;
-      height: 52px;
+      bottom: 62px;
+      right: 16px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       background: var(--amber);
       color: #1a1200;
-      font-size: 26px;
+      font-size: 22px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -225,7 +222,7 @@
       height: 60px;
       flex-shrink: 0;
       background: var(--surface);
-      border-top: 1px solid var(--border);
+      border-top: 1px solid var(--border-subtle);
       display: flex;
       align-items: stretch;
     }
@@ -271,7 +268,7 @@
     .amber-rule {
       height: 1px;
       background: linear-gradient(90deg, var(--amber-dim), transparent);
-      margin: 0 20px;
+      margin: 0 20px 14px;
       flex-shrink: 0;
     }
 
@@ -298,15 +295,16 @@
     .detail-byline .sep { color: var(--amber-dim); margin: 0 5px; }
     .detail-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
 
-    .detail-section { margin-bottom: 28px; }
+    .detail-section { margin-bottom: 14px; }
     .section-label {
       font-size: 9px;
       font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: .08em;
+      letter-spacing: .1em;
       color: var(--amber);
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
+    .section-label-dim { color: var(--amber-dim); }
 
     /* Servings control */
     .servings-control {
@@ -314,10 +312,10 @@
       align-items: center;
       justify-content: space-between;
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius);
-      padding: 12px 16px;
-      margin-bottom: 14px;
+      padding: 7px 12px;
+      margin-bottom: 12px;
     }
     .servings-label { font-size: .85rem; color: var(--cream-dim); }
     .servings-btns { display: flex; align-items: center; gap: 14px; }
@@ -339,32 +337,33 @@
     .ingredient-item {
       display: flex;
       align-items: baseline;
-      gap: 4px;
-      padding: 7px 0;
-      border-bottom: 1px solid var(--border);
-      flex-wrap: wrap;
+      gap: 8px;
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      flex-wrap: nowrap;
     }
     .ingredient-item:last-child { border-bottom: none; }
-    .ingredient-qty { font-family: var(--font-display); font-style: italic; font-size: 12px; color: var(--amber-light); min-width: 20px; }
-    .ingredient-unit { font-size: 12px; color: var(--amber-light); }
-    .ingredient-name { font-size: 13px; color: var(--cream); }
-    .ingredient-prep { font-size: 10px; color: var(--muted); font-style: italic; }
+    .ingredient-qty { font-family: var(--font-display); font-style: italic; font-size: 12px; color: var(--amber-light); min-width: 30px; text-align: right; flex-shrink: 0; }
+    .ingredient-unit { font-size: 12px; color: var(--amber-light); flex-shrink: 0; }
+    .ingredient-name { font-size: 12px; color: var(--cream); flex: 1; }
+    .ingredient-prep { font-size: 10px; color: var(--muted); font-style: italic; white-space: nowrap; }
 
     /* Steps */
     .step-list { list-style: none; }
-    .step-item { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .step-item { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border-subtle); }
     .step-item:last-child { border-bottom: none; }
-    .step-num { font-family: var(--font-display); font-style: italic; font-size: 20px; color: var(--amber-dim); flex-shrink: 0; min-width: 22px; line-height: 1.4; }
-    .step-text { font-size: 13px; color: var(--cream-dim); line-height: 1.6; }
+    .step-num { font-family: var(--font-display); font-style: italic; font-size: 20px; color: var(--amber-dim); flex-shrink: 0; min-width: 16px; line-height: 1; }
+    .step-text { font-size: 12px; color: var(--cream-dim); line-height: 1.6; padding-top: 2px; }
 
     /* Annotations */
     .annotation-panel {
       background: rgba(201,147,58,0.06);
-      border: 1px solid rgba(201,147,58,0.15);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px;
+      padding: 10px 12px;
+      margin-bottom: 14px;
     }
-    .annotation-panel .section-label { margin-bottom: 10px; }
+    .annotation-panel .section-label { margin-bottom: 5px; }
     .annotation-item { margin-bottom: 12px; }
     .annotation-date { font-size: 9px; text-transform: uppercase; letter-spacing: .06em; color: var(--amber-dim); margin-bottom: 3px; }
     .annotation-text { font-family: var(--font-display); font-style: italic; font-size: 12px; color: var(--amber-light); line-height: 1.5; }
@@ -373,7 +372,7 @@
     .annotation-form input {
       flex: 1;
       background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-subtle);
       border-radius: 6px;
       padding: 8px 12px;
       font-size: .85rem;
@@ -386,8 +385,8 @@
     /* Detail sticky footer */
     .detail-sticky-footer {
       flex-shrink: 0;
-      padding: 12px 20px 28px;
-      border-top: 1px solid var(--border);
+      padding: 10px 20px 12px;
+      border-top: 1px solid var(--border-subtle);
       background: var(--bg);
     }
     .btn-cook {
@@ -440,9 +439,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 16px;
+      padding: 7px 20px;
       background: var(--surface);
-      border-bottom: 2px solid var(--border-amber);
+      border-bottom: 2px solid var(--border);
       flex-shrink: 0;
     }
     .scale-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
@@ -464,7 +463,7 @@
       width: 110px;
       flex-shrink: 0;
       background: var(--card);
-      border-right: 1px solid var(--border);
+      border-right: 1px solid var(--border-subtle);
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -476,9 +475,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 8px 6px;
+      padding: 8px 10px 6px;
       cursor: pointer;
       flex-shrink: 0;
+      border-bottom: 1px solid var(--border-subtle);
     }
     .ing-panel.collapsed .ing-panel-header { display: none; }
 
@@ -504,7 +504,7 @@
     }
     .ing-panel.collapsed .ing-panel-collapsed-label { display: block; }
 
-    .cook-ing-item { padding: 7px 8px; border-bottom: 1px solid var(--border); }
+    .cook-ing-item { padding: 6px 10px; border-bottom: 1px solid var(--border-subtle); }
     .cook-ing-qty { font-family: var(--font-display); font-style: italic; font-size: 10px; color: var(--amber-light); line-height: 1.4; }
     .cook-ing-name { font-size: 9px; color: var(--cream); }
     .cook-ing-note { font-size: 8px; color: var(--muted); font-style: italic; }
@@ -513,10 +513,15 @@
 
     .active-step-card {
       background: rgba(201,147,58,0.07);
-      border: 1px solid var(--border-amber);
+      border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 14px;
-      margin-bottom: 16px;
+      padding: 10px;
+      margin-bottom: 8px;
+    }
+    .cook-steps-label {
+      font-size: 8px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: .1em;
+      color: var(--amber); margin-bottom: 6px;
     }
     .step-counter { font-family: var(--font-display); font-style: italic; font-size: 9px; color: var(--amber); margin-bottom: 8px; }
     .active-step-text { font-size: 13px; color: var(--cream); line-height: 1.6; }
@@ -533,10 +538,11 @@
       align-items: center;
       justify-content: center;
       gap: 5px;
-      padding: 6px 16px;
+      padding: 6px 20px;
       overflow-x: auto;
       scrollbar-width: none;
       flex-shrink: 0;
+      background: var(--surface);
     }
     .progress-dots::-webkit-scrollbar { display: none; }
     .progress-dots .dot { border-radius: 4px; height: 4px; flex-shrink: 0; transition: all .2s; }
@@ -545,24 +551,30 @@
     .progress-dots .dot.future { width: 4px; background: rgba(255,255,255,0.07); }
 
     /* Step nav */
-    .step-nav { display: flex; gap: 8px; padding: 8px 16px 28px; flex-shrink: 0; }
+    .step-nav {
+      display: flex; gap: 8px; padding: 8px 20px 12px; flex-shrink: 0;
+      background: var(--surface); border-top: 1px solid var(--border-subtle);
+    }
     .step-nav-back {
       flex: 1;
-      padding: 12px;
-      border: 1px solid var(--border);
+      padding: 9px;
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius);
-      color: var(--cream);
-      font-size: 13px;
+      color: var(--muted);
+      font-size: 11px;
+      text-align: center;
       transition: opacity .15s;
     }
     .step-nav-next {
       flex: 2;
-      padding: 12px;
+      padding: 9px;
       background: var(--amber);
       border-radius: var(--radius);
       color: #1a1200;
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 500;
+      text-align: center;
+      letter-spacing: .02em;
     }
 
     /* ════════════════════════════════
@@ -575,7 +587,7 @@
       align-items: center;
       gap: 12px;
       padding: 16px 20px 14px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--border-subtle);
       flex-shrink: 0;
     }
     .form-back { font-size: 13px; font-weight: 500; color: var(--amber); }
@@ -595,7 +607,7 @@
     .form-input, .form-textarea {
       width: 100%;
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-subtle);
       border-radius: 8px;
       padding: 10px 14px;
       font-size: .9rem;
@@ -615,7 +627,7 @@
       flex-wrap: wrap;
       gap: 6px;
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-subtle);
       border-radius: 8px;
       padding: 8px 12px;
       min-height: 42px;
@@ -653,7 +665,7 @@
     .prep-input { width: 86px; }
     .qty-input, .unit-input, .name-input, .prep-input {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-subtle);
       border-radius: 6px;
       padding: 8px 10px;
       font-size: .8rem;
@@ -668,7 +680,7 @@
     .step-row textarea {
       flex: 1;
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-subtle);
       border-radius: 8px;
       padding: 9px 12px;
       font-size: .85rem;
@@ -684,12 +696,12 @@
 
     .btn { font-weight: 500; cursor: pointer; border-radius: 8px; border: none; }
     .btn-primary { background: var(--amber); color: #1a1200; padding: 9px 18px; font-size: .875rem; }
-    .btn-secondary { background: var(--surface); color: var(--cream); border: 1px solid var(--border); padding: 9px 18px; font-size: .875rem; }
+    .btn-secondary { background: var(--surface); color: var(--cream); border: 1px solid var(--border-subtle); padding: 9px 18px; font-size: .875rem; }
     .btn-sm { padding: 6px 14px; font-size: .8rem; }
     .btn-add {
       width: 100%;
       background: none;
-      border: 1px dashed var(--border);
+      border: 1px dashed var(--border-subtle);
       color: var(--muted);
       font-size: .85rem;
       padding: 10px;
@@ -703,7 +715,7 @@
       padding: 12px 20px 28px;
       display: flex;
       gap: 10px;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid var(--border-subtle);
     }
     .form-actions .btn { flex: 1; }
 
@@ -714,15 +726,26 @@
     .sheet-overlay.open { display: flex; }
     .sheet { width: 100%; max-height: 85vh; background: var(--surface); border-radius: 16px 16px 0 0; display: flex; flex-direction: column; overflow: hidden; }
     .sheet-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 10px auto 0; flex-shrink: 0; }
-    .sheet-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+    .sheet-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid var(--border-subtle); flex-shrink: 0; }
     .sheet-header h2 { font-family: var(--font-display); font-size: 18px; font-weight: 400; color: var(--cream); }
     .sheet-content { flex: 1; overflow-y: auto; padding: 16px 20px; }
 
-    .shopping-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); cursor: pointer; }
-    .shopping-check { width: 20px; height: 20px; border: 1.5px solid var(--border); border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--amber); }
+    .shopping-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border-subtle); cursor: pointer; }
+    .shopping-check { width: 20px; height: 20px; border: 1.5px solid var(--border-subtle); border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--amber); }
     .shopping-item.checked .shopping-check { background: var(--amber); color: #1a1200; border-color: var(--amber); }
     .shopping-text { font-size: .9rem; color: var(--cream); line-height: 1.4; }
     .shopping-item.checked .shopping-text { text-decoration: line-through; color: var(--muted); }
+
+    .sort-option {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; padding: 14px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: .9rem; color: var(--cream-dim);
+      background: none; text-align: left; cursor: pointer;
+    }
+    .sort-option:last-child { border-bottom: none; }
+    .sort-option.active { color: var(--amber); }
+    .sort-option.active::after { content: '✓'; color: var(--amber); font-size: 14px; }
 
     .export-options { display: flex; flex-direction: column; gap: 2px; }
     .export-option { display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: 10px; background: none; border: 1px solid transparent; cursor: pointer; text-align: left; width: 100%; }
@@ -787,18 +810,18 @@
         <h1 class="lib-title">My Kitchen</h1>
         <div class="lib-count" id="recipe-count">0 recipes</div>
       </div>
-      <select class="sort-select" id="sort-select">
-        <option value="created_desc">Newest</option>
-        <option value="created_asc">Oldest</option>
-        <option value="alpha">A–Z</option>
-        <option value="alpha_desc">Z–A</option>
-        <option value="cooked">Recently cooked</option>
-      </select>
     </div>
 
     <div class="lib-search-row">
-      <input type="search" class="search-input" id="search-input" placeholder="Search recipes…"
+      <input type="search" class="search-input" id="search-input" placeholder="Search recipes, ingredients…"
              autocomplete="off" autocorrect="off" spellcheck="false">
+      <button class="filter-btn" id="filter-sort-btn" aria-label="Sort">
+        <div class="fl-lines">
+          <div class="fl fl1"></div>
+          <div class="fl fl2"></div>
+          <div class="fl fl3"></div>
+        </div>
+      </button>
     </div>
 
     <div class="filter-bar" id="filter-bar"></div>
@@ -809,21 +832,25 @@
 
     <nav class="bottom-nav" id="bottom-nav">
       <button class="nav-item active" data-nav="library">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 19V6a2 2 0 012-2h13a1 1 0 011 1v13"/>
-          <path d="M4 19a2 2 0 002 2h13"/><path d="M4 19a2 2 0 012-2h13"/>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <rect x="2" y="2" width="6" height="6" rx="1.5" fill="currentColor"/>
+          <rect x="10" y="2" width="6" height="6" rx="1.5" fill="currentColor" opacity="0.4"/>
+          <rect x="2" y="10" width="6" height="6" rx="1.5" fill="currentColor" opacity="0.4"/>
+          <rect x="10" y="10" width="6" height="6" rx="1.5" fill="currentColor" opacity="0.4"/>
         </svg>
         <span>Library</span>
       </button>
       <button class="nav-item" data-nav="import">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M4 14L9 4L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 11H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
-        <span>Add</span>
+        <span>Import</span>
       </button>
       <button class="nav-item" data-nav="recent">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M9 6V9L11 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
         <span>Recent</span>
       </button>
@@ -844,7 +871,7 @@
     <div class="amber-rule"></div>
     <div class="scroll-area" id="detail-content"></div>
     <div class="detail-sticky-footer">
-      <button class="btn-cook" id="cook-btn">Start Cooking</button>
+      <button class="btn-cook" id="cook-btn">Start cooking</button>
       <div class="detail-footer-actions">
         <button class="btn-ghost-sm" id="shop-btn">Shopping List</button>
         <button class="btn-ghost-sm" id="export-btn">Export</button>
@@ -992,6 +1019,18 @@
         </button>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ════════ SORT SHEET ════════ -->
+<div class="sheet-overlay" id="sort-overlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h2>Sort</h2>
+      <button class="btn-icon" id="sort-close">✕</button>
+    </div>
+    <div class="sheet-content" id="sort-content"></div>
   </div>
 </div>
 
@@ -1225,13 +1264,14 @@ function renderLibrary() {
     card.dataset.id = r.id;
 
     const meta = [];
+    if (r.tags && r.tags.length) meta.push(esc(r.tags[0]));
     if (r.prep_time_minutes || r.cook_time_minutes) {
       const total = (r.prep_time_minutes || 0) + (r.cook_time_minutes || 0);
-      meta.push(`${total}min`);
+      meta.push(`${total} min`);
     }
-    if (r.base_servings) meta.push(`${r.base_servings} srv`);
     if (r.last_cooked_at) meta.push(fmtDate(r.last_cooked_at));
 
+    const DOT = '<div class="meta-dot"></div>';
     card.innerHTML = `
       <div class="card-swatch" style="background:${swatch.bg}">${swatch.emoji}</div>
       <div class="card-info">
@@ -1239,9 +1279,7 @@ function renderLibrary() {
           <span class="card-title">${esc(r.title)}</span>
           ${hasAnnotations ? '<span class="annotated-badge">Annotated</span>' : ''}
         </div>
-        ${r.description ? `<div class="card-desc">${esc(r.description.slice(0, 65))}${r.description.length > 65 ? '…' : ''}</div>` : ''}
-        ${meta.length ? `<div class="card-meta">${meta.join('<span class="dot"> · </span>')}</div>` : ''}
-        ${r.tags && r.tags.length ? `<div class="card-tags">${r.tags.slice(0,4).map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>` : ''}
+        ${meta.length ? `<div class="card-meta">${meta.join(DOT)}</div>` : ''}
       </div>
       <div class="card-chevron">›</div>
     `;
@@ -1332,7 +1370,7 @@ function renderDetail() {
 
     ${steps.length ? `
       <div class="detail-section">
-        <div class="section-label">Steps</div>
+        <div class="section-label">Method</div>
         <ol class="step-list">
           ${steps.map((s, i) => `<li class="step-item">
             <span class="step-num">${i + 1}</span>
@@ -1344,7 +1382,7 @@ function renderDetail() {
 
     <div class="detail-section">
       <div class="annotation-panel">
-        <div class="section-label">Your Notes</div>
+        <div class="section-label section-label-dim">Your Notes</div>
         <div id="annotation-list">
           ${annotations.length
             ? annotations.map(a => `
@@ -1478,7 +1516,7 @@ function renderCookMode() {
   }
   document.querySelector('.step-nav').style.display = '';
 
-  let html = '';
+  let html = '<div class="cook-steps-label">Method</div>';
   const step = steps[stepIdx];
   if (step) {
     html += `<div class="active-step-card">
@@ -1701,6 +1739,31 @@ async function saveForm() {
 }
 
 // ═══════════════════════════════════════════════════════
+//  SORT SHEET
+// ═══════════════════════════════════════════════════════
+function openSortSheet() {
+  const SORTS = [
+    { value: 'created_desc', label: 'Newest first' },
+    { value: 'created_asc',  label: 'Oldest first' },
+    { value: 'alpha',        label: 'A – Z' },
+    { value: 'alpha_desc',   label: 'Z – A' },
+    { value: 'cooked',       label: 'Recently cooked' },
+  ];
+  const el = document.getElementById('sort-content');
+  el.innerHTML = SORTS.map(s =>
+    `<button class="sort-option${state.sortMode === s.value ? ' active' : ''}" data-sort="${s.value}">${esc(s.label)}</button>`
+  ).join('');
+  el.querySelectorAll('.sort-option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.sortMode = btn.dataset.sort;
+      renderLibrary();
+      document.getElementById('sort-overlay').classList.remove('open');
+    });
+  });
+  document.getElementById('sort-overlay').classList.add('open');
+}
+
+// ═══════════════════════════════════════════════════════
 //  SHOPPING LIST
 // ═══════════════════════════════════════════════════════
 function openShoppingList() {
@@ -1862,9 +1925,13 @@ document.addEventListener('DOMContentLoaded', () => {
     renderLibrary();
   });
 
-  document.getElementById('sort-select').addEventListener('change', e => {
-    state.sortMode = e.target.value;
-    renderLibrary();
+  document.getElementById('filter-sort-btn').addEventListener('click', openSortSheet);
+  document.getElementById('sort-close').addEventListener('click', () => {
+    document.getElementById('sort-overlay').classList.remove('open');
+  });
+  document.getElementById('sort-overlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('sort-overlay'))
+      document.getElementById('sort-overlay').classList.remove('open');
   });
 
   document.getElementById('fab-add').addEventListener('click', () => openForm());
@@ -1884,7 +1951,6 @@ document.addEventListener('DOMContentLoaded', () => {
       openForm(null);
     } else if (nav === 'recent') {
       state.sortMode = 'cooked';
-      document.getElementById('sort-select').value = 'cooked';
       renderLibrary();
     }
   });
