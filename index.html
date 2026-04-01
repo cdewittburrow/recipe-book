@@ -1693,9 +1693,9 @@ async function saveForm() {
         recipe_id: recipeId,
         sort_order: idx,
         quantity: i.quantity !== '' ? parseFloat(i.quantity) : null,
-        unit: i.unit.trim() || null,
+        unit: (i.unit || '').trim() || null,
         name: i.name.trim(),
-        prep_note: i.prep_note.trim() || null,
+        prep_note: (i.prep_note || '').trim() || null,
       }));
 
     const validSteps = formState.steps
