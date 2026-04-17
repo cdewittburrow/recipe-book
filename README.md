@@ -9,7 +9,7 @@ A personal recipe library built around one insight: every other recipe app is de
 ## Stack
 
 - **Frontend:** Single-file HTML, vanilla JS — no build step, no framework
-- **Backend:** Supabase (Postgres) — project `zbyhtcsccjvmhvswlzbg`
+- **Backend:** Supabase (Postgres) — shared project `ulivctyuudgepolulpvq` ("cdewittburrow's Project")
 - **Hosting:** Vercel — auto-deploys on push to `main` (repo: `cdewittburrow/recipe-book`)
 - **Form factor:** Mobile-first PWA, designed for use in the kitchen
 - **Note:** Supabase anon key is currently hardcoded in `index.html`. Moving it server-side via a Vercel proxy function is specced in [`docs/supabase-proxy.md`](docs/supabase-proxy.md) and slated for v2.
@@ -106,6 +106,7 @@ Export is how sharing works. No in-app sharing complexity, no permissions model.
 | Mar 2026 | Supabase RLS with open anon policies | Single-user personal tool with no auth. RLS enabled to keep the pattern correct, but policies allow full anon access. Revisit if the app ever becomes multi-user. |
 | Apr 2026 | Migrate hosting from GitHub Pages to Vercel | No build step required; automatic deploys on push to `main`; better platform fit for future functions work (API proxy, AI ingestion). GitHub Pages disabled. |
 | Apr 2026 | Defer Supabase key proxy to v2 | Key is anon-level and already public in git history — moving it server-side is the right call but not urgent. Full spec in [`docs/supabase-proxy.md`](docs/supabase-proxy.md). Rotate the key in Supabase after implementing. |
+| Apr 2026 | Migrate recipes DB to shared Supabase project | Supabase free tier allows only 2 projects. Dedicated `recipe-book` project was deleted; tables (`recipes`, `ingredients`, `steps`, `annotations`) migrated to the shared `ulivctyuudgepolulpvq` project alongside garden tracker and brunch app schemas. No name conflicts in `public`. Two constants in `index.html` updated. Long-term, consolidating unrelated apps into one DB is not ideal — see roadmap. |
 
 ---
 
@@ -117,6 +118,7 @@ Export is how sharing works. No in-app sharing complexity, no permissions model.
 |---|---|
 | **Supabase key proxy** | Move anon key out of client HTML into a Vercel serverless function. Key lives in Vercel env vars; browser never sees it. Rotate the Supabase key after deploying (old key is in git history). Full spec: [`docs/supabase-proxy.md`](docs/supabase-proxy.md). |
 | **AI-driven recipe ingestion** | Add a paste-text import flow in the app. User pastes a URL or raw text; an AI API parses it into the recipe schema and presents a structured preview to confirm before saving. Leading candidate: run it through a Claude Code session rather than embedding an API key in the client (consistent with how the initial import was done). Alternatively, a small Supabase Edge Function could proxy the API call to keep the key server-side. |
+| **Dedicated database solution** | The current setup is a shared Supabase project hosting recipes alongside garden tracker, brunch app, and other unrelated schemas — a stopgap imposed by the 2-project free tier limit. Find a proper home: options include upgrading Supabase, migrating to Neon (Vercel Marketplace, generous free tier, per-database not per-project), or going localStorage-only for a personal single-device tool. |
 | Multi-recipe shopping list | Aggregate ingredients across multiple recipes for a meal. Needs smart consolidation (e.g. "1 onion" + "½ cup diced onion" → one line item). |
 | Make-again / ratings | Useful once there's enough cook history to provide context. `last_cooked_at` already tracked. |
 | Bulk Google Docs import utility | If the archive grows beyond 30 recipes, build a proper CLI that iterates a Drive folder. The `import/` script is the foundation. |
